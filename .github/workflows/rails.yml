@@ -1,4 +1,4 @@
-name: Ruby
+name: Rails
 
 on: [push]
 
@@ -6,10 +6,20 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+    container:
+      image: ruby:2.6.3
+      env:
+        MYSQL_HOST: mysql
+        MYSQL_ROOT_PASSWORD: password
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Ruby 2.6
+    - name: Set up rails
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6.x
